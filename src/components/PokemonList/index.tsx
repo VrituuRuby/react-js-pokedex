@@ -1,88 +1,17 @@
 import { Container } from "./styles"
+import { PokemonCard } from "../PokemonCard"
+
 
 export function PokemonList(){
+    
+    const id = [...Array(20).keys()]
     return(
         <Container>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
-            <li>
-                <strong>Gengar</strong>
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png" alt="Bulbasaur" />
-                <span>
-                    <p>GHOST</p>
-                    <p>POISON</p>
-                </span>
-            </li>
+            {   
+                id.map(pokemon => (
+                    <PokemonCard key={pokemon + 1} index={pokemon + 1}/>
+                ))
+            }
         </Container>
     )
 }
