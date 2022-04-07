@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { ListItem } from "./styles";
 
 interface PokemonCardProps{
-    index: number;
+    url: string,
+    index: number,
 }
 
 interface PokemonData{
@@ -27,7 +28,7 @@ export function PokemonCard(props: PokemonCardProps){
     const [pokemonData, setPokemonData] = useState<PokemonData>({} as PokemonData);
 
     useEffect(() => {
-        api.get('/pokemon/' + props.index)
+        api.get(props.url)
         .then(res => setPokemonData(res.data))
 
     }, [])
@@ -37,13 +38,13 @@ export function PokemonCard(props: PokemonCardProps){
     return (
         <ListItem
             transition={{
-                delay: 0.1 * props.index,
+                // delay: 0.1 * props.index,
                 type: 'spring',
                 damping: 100,
             }}
         >
                 <img src={pokemonData?.sprites?.other?.["official-artwork"]?.front_default} alt="Bulbasaur" />
-                <strong className="index">Nº {props.index}</strong>
+                <strong className="index">Nº {props.index+1}</strong>
                 <strong className="name">{pokemonData?.name}</strong>
                 <span>
                     {
