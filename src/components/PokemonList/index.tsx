@@ -13,12 +13,25 @@ export function PokemonList(){
     const [page, setPage] = useState(1);
     const [pokemonCatalog, setPokemonCatalog] = useState<PokemonCatalogData[]>([])
 
-    useEffect(()=>{
+    function loadPokemon(){
         api.get(`pokemon?limit=${page * 20}`)
         .then(res => {
             setPokemonCatalog(res.data.results)
             console.log(pokemonCatalog)
         })
+    }
+
+    function handleScrolling(e: any){
+        let windowInnerHeight = window.innerHeight;
+        let scrollTop = e.target.documentElement.scrollTop;
+        let scrollHeight = e.target.documentElement.scrollHeight;
+
+        if (windowInnerHeight + scrollTop + 1 >= scrollHeight) setPage(page +1)
+    }
+
+    useEffect(()=>{
+        loadPokemon();
+        window.addEventListener('scroll', handleScrolling)
     }, [page])
 
     if (!pokemonCatalog) return null;
