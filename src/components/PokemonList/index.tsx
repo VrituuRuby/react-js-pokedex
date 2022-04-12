@@ -10,45 +10,33 @@ interface PokemonCatalogData{
 
 
 export function PokemonList(){
+    const [isLoading, setIsLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [pokemonCatalog, setPokemonCatalog] = useState<PokemonCatalogData[]>([])
 
-    function loadPokemon(){
-        api.get(`pokemon?limit=${page * 20}`)
+    async function loadPokemon(){
+        setIsLoading(true);
+        await api.get(`pokemon?limit=${page * 20}`)
         .then(res => {
             setPokemonCatalog(res.data.results)
             console.log(pokemonCatalog)
         })
-    }
-
-    function handleScrolling(e: any){
-        let windowInnerHeight = window.innerHeight;
-        let scrollTop = e.target.documentElement.scrollTop;
-        let scrollHeight = e.target.documentElement.scrollHeight;
-
-        if (windowInnerHeight + scrollTop + 1 >= scrollHeight) setPage(page +1)
+        setIsLoading(false);
     }
 
     useEffect(()=>{
         loadPokemon();
-        window.addEventListener('scroll', handleScrolling)
     }, [page])
-
-    if (!pokemonCatalog) return null;
 
     return(
         <Container>
             {   
-                pokemonCatalog.map((pokemon, index) => (
+                isLoading ? null :
+                (pokemonCatalog.map((pokemon, index) => (
                     <PokemonCard key={index} url={pokemon.url} index={index} />
-                ))
+                )))
             }
-            <button 
-                type="button"
-                onClick={() => {setPage(page+1)}}
-            >
-                Next {page}
-            </button>
+            <p id='page-end-tracker'/>
         </Container>
     )
 }

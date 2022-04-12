@@ -2,6 +2,7 @@ import api from "@services/api";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ListItem } from "./styles";
+import {MdCatchingPokemon} from "react-icons/md"
 
 interface PokemonCardProps{
     url: string,
@@ -25,32 +26,43 @@ interface PokemonData{
 }
 
 export function PokemonCard(props: PokemonCardProps){
+    const [isLoading, setIsLoading] = useState(true);
     const [pokemonData, setPokemonData] = useState<PokemonData>({} as PokemonData);
 
-    useEffect(() => {
-        api.get(props.url)
+    async function loadPokemonData(){
+        setIsLoading(true);
+        await api.get(props.url)
         .then(res => setPokemonData(res.data))
+    }
 
+    useEffect(() => {
+        loadPokemonData();
+        setIsLoading(false);
     }, [])
-
-    if (!pokemonData) return null;
 
     return (
         <ListItem
             transition={{
-                // delay: 0.1 * props.index,
                 type: 'spring',
                 damping: 100,
             }}
         >
-                <img src={pokemonData?.sprites?.other?.["official-artwork"]?.front_default} alt="Bulbasaur" />
-                <strong className="index">Nº {props.index+1}</strong>
-                <strong className="name">{pokemonData?.name}</strong>
-                <span>
-                    {
-                    pokemonData && pokemonData?.types?.map(({ type}, index) => (<p key={index}className={type.name}>{type.name}</p>))
-                    }
-                </span>
+            {
+                isLoading? (<MdCatchingPokemon />) : (
+                    <>
+                        <img src={pokemonData?.sprites?.other?.["official-artwork"]?.front_default} alt={pokemonData?.name} />
+                        <strong className="index">Nº {props.index+1}</strong>
+                        <strong className="name">{pokemonData?.name}</strong>
+                        <span>
+                            {
+                            pokemonData && pokemonData?.types?.map(({ type}, index) => (<p key={index}className={type.name}>{type.name}</p>))
+                            }
+                        </span>
+                    </>
+                )
+            }
+
+                
         </ListItem>
     )
 }

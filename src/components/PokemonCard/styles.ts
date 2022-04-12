@@ -16,6 +16,20 @@ export const ListItem = styled(motion.li).attrs({
     box-shadow: 0px 0.25rem 1rem rgba(0,0,0,0.1);
     padding: 1rem;
 
+    svg{
+        width: 100%;
+        height: 100%;
+        padding: 2rem;
+        color: #eee;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+
     strong {
         &.name{
             margin: 0.25rem 0;
@@ -39,6 +53,7 @@ export const ListItem = styled(motion.li).attrs({
         background-color: #eee;
         border-radius: 0.25rem;
         padding: 0.5rem;
+        min-height: 10rem;
     }
     
     span {
