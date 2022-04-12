@@ -15,10 +15,12 @@ export const Container = styled(motion.ul).attrs({
     margin: 0 auto;
     margin-top: -8rem;
     user-select: none;
-    
-    #page-end-tracker{
-        width: 100%;
-        height: 50px;
-        background: red;
+
+    #fix{
+        position: fixed;
+        left: 0;
+        background-color: white;
+        padding: 2rem;
+        flex-wrap: n;
     }
 `

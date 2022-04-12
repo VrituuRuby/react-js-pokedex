@@ -8,35 +8,44 @@ interface PokemonCatalogData{
     url: string,
 }
 
-
 export function PokemonList(){
-    const [isLoading, setIsLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [pokemonCatalog, setPokemonCatalog] = useState<PokemonCatalogData[]>([])
 
     async function loadPokemon(){
-        setIsLoading(true);
         await api.get(`pokemon?limit=${page * 20}`)
         .then(res => {
             setPokemonCatalog(res.data.results)
-            console.log(pokemonCatalog)
         })
-        setIsLoading(false);
     }
 
-    useEffect(()=>{
+    useEffect(()=> {
         loadPokemon();
     }, [page])
 
-    return(
-        <Container>
-            {   
-                isLoading ? null :
-                (pokemonCatalog.map((pokemon, index) => (
-                    <PokemonCard key={index} url={pokemon.url} index={index} />
-                )))
+    useEffect(() => {
+        const intersectionObserver = new IntersectionObserver(entries => {
+            if (entries.some(entry => entry.isIntersecting)){
+                console.log('observado', page)
+                setPage(currentPageInsideState => currentPageInsideState + 1)
             }
-            <p id='page-end-tracker'/>
-        </Container>
+        });
+        intersectionObserver.observe(document.getElementById('page-end-tracker')!)
+    }, [])
+
+    return(
+        <>
+            <Container>
+                {/* <h1 id='fix'>{`Página atual: ${page}`}</h1> */}
+                {   
+                    pokemonCatalog.map((pokemon, index) => (
+                        <PokemonCard key={index} url={pokemon.url} index={index} />
+                    ))    
+                }
+            </Container>
+            <p id="page-end-tracker"/>
+        </>
+        
     )
 }
+

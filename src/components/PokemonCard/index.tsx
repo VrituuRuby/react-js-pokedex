@@ -33,11 +33,11 @@ export function PokemonCard(props: PokemonCardProps){
         setIsLoading(true);
         await api.get(props.url)
         .then(res => setPokemonData(res.data))
+        setIsLoading(false)
     }
 
     useEffect(() => {
         loadPokemonData();
-        setIsLoading(false);
     }, [])
 
     return (
@@ -47,22 +47,17 @@ export function PokemonCard(props: PokemonCardProps){
                 damping: 100,
             }}
         >
-            {
-                isLoading? (<MdCatchingPokemon />) :(
-                    <>
-                        <img src={pokemonData?.sprites?.other?.["official-artwork"]?.front_default} alt={pokemonData?.name} />
-                        <strong className="index">Nº {props.index+1}</strong>
-                        <strong className="name">{pokemonData?.name}</strong>
-                        <span>
-                            {
-                            pokemonData && pokemonData?.types?.map(({ type}, index) => (<p key={index}className={type.name}>{type.name}</p>))
-                            }
-                        </span>
-                    </>
-                )
-            }
-
-                
+            <img 
+                src={pokemonData?.sprites?.other?.["official-artwork"]?.front_default}
+                alt={pokemonData?.name}  
+            />
+            <strong className="index">Nº {props.index+1}</strong>
+            <strong className="name">{pokemonData?.name}</strong>
+            <span>
+                {
+                    pokemonData && pokemonData?.types?.map(({ type}, index) => (<p key={index}className={type.name}>{type.name}</p>))
+                }
+            </span>                
         </ListItem>
     )
 }

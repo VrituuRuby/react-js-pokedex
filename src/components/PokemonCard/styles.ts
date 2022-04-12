@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const ListItem = styled(motion.li).attrs({
+    transition: {ease: 'backOut'},
     animate: {
         opacity: [0,1,1],
         y: [20,-20,0]
@@ -10,7 +11,6 @@ export const ListItem = styled(motion.li).attrs({
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     background-color: white;
     border-radius: 0.5rem;
     box-shadow: 0px 0.25rem 1rem rgba(0,0,0,0.1);
