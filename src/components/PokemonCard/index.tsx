@@ -48,7 +48,7 @@ export function PokemonCard(props: PokemonCardProps){
             }}
         >
             {
-                isLoading? (<MdCatchingPokemon />) : (
+                isLoading? (<MdCatchingPokemon />) :(
                     <>
                         <img src={pokemonData?.sprites?.other?.["official-artwork"]?.front_default} alt={pokemonData?.name} />
                         <strong className="index">Nº {props.index+1}</strong>
