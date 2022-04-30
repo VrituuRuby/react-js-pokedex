@@ -44,7 +44,7 @@ body {
 
 .react-modal-content {
     background: #f2f2f2;
-    width: 1200px;
     padding: 1rem;
     border-radius: 0.5rem;
+    width: 1200px;
 }

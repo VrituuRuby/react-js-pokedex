@@ -10,21 +10,19 @@ interface PokemonDetailsModalProps{
     pokemonDetailsData: PokemonData,
 }
 
-interface flavorTextData {
-    flavor_text_entries: {
-        flavor_text: string,
-    }[]
-}
-
 export function PokemonDetailsModal({isPokemonDetailsModalOpen,
     handleClosePokemonDetailsModal, pokemonDetailsData}: PokemonDetailsModalProps){ 
-    const [flavorText, setFlavorText] = useState<flavorTextData | undefined>(undefined);
+    const [flavorText, setFlavorText] = useState<string | undefined>('');
     
     useEffect(()=> {
         if(!isPokemonDetailsModalOpen) return
         const fetch = async () => {
             const res = await api.get(pokemonDetailsData?.species?.url)
-            setFlavorText(res.data)
+            let englishFlavorText = res.data.flavor_text_entries.find((element: any) => element.language.name === 'en').flavor_text;
+            englishFlavorText = englishFlavorText.replace('\n','').replace('\f',' ')
+
+            setFlavorText(englishFlavorText)
+            console.log(englishFlavorText)
         }
         fetch()
     }, [pokemonDetailsData, isPokemonDetailsModalOpen])
@@ -37,9 +35,13 @@ export function PokemonDetailsModal({isPokemonDetailsModalOpen,
             className='react-modal-content'
         >
             <Container>
-                <h1>{pokemonDetailsData.name}</h1>
-                <img src={pokemonDetailsData?.sprites?.other["official-artwork"]?.front_default} alt="" />
-                <p>{flavorText?.flavor_text_entries[0]?.flavor_text}</p>
+                <h1>{pokemonDetailsData?.name}</h1>
+                <div className="details">
+                    <img src={pokemonDetailsData?.sprites?.other?.["official-artwork"]?.front_default} alt={pokemonDetailsData?.name} />
+                    <div className="flavor-text-and-table">
+                        <p>{flavorText}</p>
+                    </div>
+                </div> 
             </Container>
         </Modal>
     )
