@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const ListItem = styled(motion.li).attrs({
-    transition: {ease: 'backOut'},
     animate: {
         opacity: [0,1,1],
         y: [20,-20,0]
@@ -10,18 +9,34 @@ export const ListItem = styled(motion.li).attrs({
 })`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
     background-color: white;
     border-radius: 0.5rem;
     box-shadow: 0px 0.25rem 1rem rgba(0,0,0,0.1);
     padding: 1rem;
 
+    button {
+        background: none;
+        border: 0;
+        cursor: pointer;
+    }
+
+    .loader{
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
     svg{
         width: 100%;
         height: 100%;
-        padding: 2rem;
         color: #eee;
         animation: spin 2s linear infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     @keyframes spin {
@@ -32,24 +47,26 @@ export const ListItem = styled(motion.li).attrs({
 
     strong {
         &.name{
-            margin: 0.25rem 0;
             width: 100%;
             text-align: left;
             font-size: 2rem;
             font-weight: 400;
             text-transform: capitalize;
+            color: #333;
         }
 
         &.index{
             width: 100%;
             text-align: left;
-            font-size: 1rem;
+            font-family: 'Goldman';
+            font-size: 1.5rem;
             font-weight: 400;
+            color: #ccc;
         }
 
     }
     img{
-        width: 100%;
+        width: 14rem;
         background-color: #eee;
         border-radius: 0.25rem;
         padding: 0.5rem;
@@ -92,7 +109,7 @@ export const ListItem = styled(motion.li).attrs({
                 background-color: #a4acaf;
                 color: #000;
             }
-            &.eletric{
+            &.electric{
                 background-color:#eed535;
             }
             &.ground{

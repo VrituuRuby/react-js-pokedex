@@ -1,15 +1,13 @@
 import api from "@services/api";
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ListItem } from "./styles";
-import {MdCatchingPokemon} from "react-icons/md"
-
+import {MdCatchingPokemon} from 'react-icons/md'
 interface PokemonCardProps{
     url: string,
     index: number,
+    onOpenPokemonDetailsModal: (url: string) => void;
 }
-
-interface PokemonData{
+export interface PokemonData{
     name: string,
     sprites: {
         other: {
@@ -22,22 +20,24 @@ interface PokemonData{
         type: {
             name: string,
         }
-    }[]
+    }[],
+    species: {
+        url: string
+    }
 }
 
 export function PokemonCard(props: PokemonCardProps){
     const [isLoading, setIsLoading] = useState(true);
     const [pokemonData, setPokemonData] = useState<PokemonData>({} as PokemonData);
 
-    async function loadPokemonData(){
-        setIsLoading(true);
-        await api.get(props.url)
-        .then(res => setPokemonData(res.data))
-        setIsLoading(false)
-    }
-
     useEffect(() => {
-        loadPokemonData();
+        setIsLoading(true)
+        const loadPokemon = async () => {
+            const res = await api.get(props.url)
+            setPokemonData(res.data)
+        }
+        loadPokemon()
+        setIsLoading(false)
     }, [])
 
     return (
@@ -47,17 +47,22 @@ export function PokemonCard(props: PokemonCardProps){
                 damping: 100,
             }}
         >
-            <img 
-                src={pokemonData?.sprites?.other?.["official-artwork"]?.front_default}
-                alt={pokemonData?.name}  
-            />
+            {isLoading && <div className="loader">
+                    <MdCatchingPokemon />
+                </div>
+            }
+            <button type='button' onClick={()=>props.onOpenPokemonDetailsModal(props.url)}>
+                <img src={pokemonData?.sprites?.other["official-artwork"]?.front_default}/>
+            </button>
             <strong className="index">Nº {props.index+1}</strong>
             <strong className="name">{pokemonData?.name}</strong>
             <span>
                 {
                     pokemonData && pokemonData?.types?.map(({ type}, index) => (<p key={index}className={type.name}>{type.name}</p>))
                 }
-            </span>                
+            </span>
+
+
         </ListItem>
     )
 }
