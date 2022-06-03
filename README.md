@@ -3,3 +3,5 @@
 - Vite
 - Axios
 - Styled Components
+- React-Modal
+- Framer Motion
