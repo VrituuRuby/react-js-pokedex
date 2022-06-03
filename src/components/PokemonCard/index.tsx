@@ -19,11 +19,14 @@ export interface PokemonData{
     types: {
         type: {
             name: string,
+            url: string,
         }
     }[],
     species: {
         url: string
-    }
+    },
+    weight: number,
+    height: number,
 }
 
 export function PokemonCard(props: PokemonCardProps){
@@ -54,7 +57,7 @@ export function PokemonCard(props: PokemonCardProps){
             <button type='button' onClick={()=>props.onOpenPokemonDetailsModal(props.url)}>
                 <img src={pokemonData?.sprites?.other["official-artwork"]?.front_default}/>
             </button>
-            <strong className="index">Nº {props.index+1}</strong>
+            <strong className="index">Nº{String(props.index+1).padStart(3, '0')}</strong>
             <strong className="name">{pokemonData?.name}</strong>
             <span>
                 {

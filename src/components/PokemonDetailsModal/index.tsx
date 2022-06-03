@@ -9,11 +9,9 @@ interface PokemonDetailsModalProps{
     handleClosePokemonDetailsModal: () => void,
     pokemonDetailsData: PokemonData,
 }
-
 export function PokemonDetailsModal({isPokemonDetailsModalOpen,
     handleClosePokemonDetailsModal, pokemonDetailsData}: PokemonDetailsModalProps){ 
     const [flavorText, setFlavorText] = useState<string | undefined>('');
-    
     useEffect(()=> {
         if(!isPokemonDetailsModalOpen) return
         const fetch = async () => {
@@ -22,7 +20,6 @@ export function PokemonDetailsModal({isPokemonDetailsModalOpen,
             englishFlavorText = englishFlavorText.replace('\n','').replace('\f',' ')
 
             setFlavorText(englishFlavorText)
-            console.log(englishFlavorText)
         }
         fetch()
     }, [pokemonDetailsData, isPokemonDetailsModalOpen])
@@ -40,6 +37,37 @@ export function PokemonDetailsModal({isPokemonDetailsModalOpen,
                     <img src={pokemonDetailsData?.sprites?.other?.["official-artwork"]?.front_default} alt={pokemonDetailsData?.name} />
                     <div className="flavor-text-and-table">
                         <p>{flavorText}</p>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h2>Height</h2>
+                                        <h3>{pokemonDetailsData?.height/10}m</h3>
+                                    </td>
+                                    <td>
+                                        <h2>Weight</h2>
+                                        <h3>{pokemonDetailsData?.weight/10}kg</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h2>Category</h2>
+                                        <h3>Seed</h3>
+                                    </td>
+                                    <td>
+                                        <h2>Abilities</h2>
+                                        <h3>16kg</h3>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h2>Types</h2>
+                        <span className="types">
+                            {pokemonDetailsData?.types?.map(({type}, index) => (<p key={index}className={type.name}>{type.name}</p>))}
+                        </span>
+                        <h2>Weaknesses</h2>
+                        <span className="types">
+                        </span>
                     </div>
                 </div> 
             </Container>

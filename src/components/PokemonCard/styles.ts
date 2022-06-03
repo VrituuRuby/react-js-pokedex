@@ -50,17 +50,19 @@ export const ListItem = styled(motion.li).attrs({
             width: 100%;
             text-align: left;
             font-size: 2rem;
-            font-weight: 400;
+            line-height: 2rem;
+            font-weight: bold;
             text-transform: capitalize;
             color: #333;
+            font-family: 'Teko';
         }
 
         &.index{
             width: 100%;
             text-align: left;
-            font-family: 'Goldman';
-            font-size: 1.5rem;
-            font-weight: 400;
+            font-family: 'Teko';
+            font-size: 1.25rem;
+            line-height: 1.25rem;
             color: #ccc;
         }
 
@@ -78,9 +80,11 @@ export const ListItem = styled(motion.li).attrs({
         display: flex;
         gap: 0.25rem;
         p{
-            padding: 0 1rem;
+            padding: 0.25rem 1rem;
             border-radius: 0.25rem;
-            font-weight: 400;
+            font-family: 'Teko';
+            font-weight: bold;
+            line-height: 1rem;
             color: white;
             text-transform: uppercase;
             &.grass{
@@ -103,18 +107,15 @@ export const ListItem = styled(motion.li).attrs({
             }
             &.flying{
                 background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);
-                color: #000;
             }
             &.normal{
                 background-color: #a4acaf;
-                color: #000;
             }
             &.electric{
                 background-color:#eed535;
             }
             &.ground{
                 background: linear-gradient(180deg, #f7de3f 50%, #ab9842 50%);
-                color: #000;
             }
             &.fairy{
                 background-color: #fdb9e9;
@@ -139,7 +140,6 @@ export const ListItem = styled(motion.li).attrs({
             }
             &.dragon{
                 background: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
-                color: #000;
             }
             &.dark{
                 background-color: #707070;
